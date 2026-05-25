@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+// WriteCSV writes the provided orders to a CSV file at the given path.
+// The output contains a header row: Date, Restaurant Name, Amount.
 func WriteCSV(orders []Order, path string) error {
 	file, err := os.Create(path)
 	if err != nil {

@@ -10,6 +10,7 @@ import (
 	"github.com/ledongthuc/pdf"
 )
 
+// ParsePDF extracts a slice of Order values from a Swiggy order-history PDF at the given path.
 func ParsePDF(path string) ([]Order, error) {
 	f, r, err := pdf.Open(path)
 	if err != nil {

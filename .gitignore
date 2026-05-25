@@ -1,4 +1,4 @@
 .idea
-
-orders.csv
-sample.pdf
+samples
+output
+swiggy-order-history-parser
