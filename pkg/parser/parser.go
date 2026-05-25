@@ -42,6 +42,11 @@ func ParsePDF(path string) ([]Order, error) {
 
 	text := sb.String()
 
+	return parseOrderText(text), nil
+}
+
+// parseOrderText extracts orders from the plain text of a Swiggy order-history PDF.
+func parseOrderText(text string) []Order {
 	// Regex to capture each row: Date, OrderID, RestaurantName, Amount
 	// Date: dd-mm-yyyy
 	// OrderID: long digits
@@ -62,5 +67,5 @@ func ParsePDF(path string) ([]Order, error) {
 		}
 	}
 
-	return orders, nil
+	return orders
 }

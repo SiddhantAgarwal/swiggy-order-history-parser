@@ -9,6 +9,7 @@ import (
 
 func main() {
 	outputPath := flag.String("o", "orders.csv", "output CSV file path")
+
 	flag.Parse()
 
 	args := flag.Args()
