@@ -10,6 +10,13 @@ import (
 	"github.com/ledongthuc/pdf"
 )
 
+// Pre-compiled regex to capture each row: Date, OrderID, RestaurantName, Amount
+// Date: dd-mm-yyyy
+// OrderID: long digits
+// Amount: ₹digits.digits
+// Restaurant: everything in between
+var rowRe = regexp.MustCompile(`(\d{2}-\d{2}-\d{4})(\d{15})(.+?)(₹[\d,]+\.\d{2})`)
+
 // ParsePDF extracts a slice of Order values from a Swiggy order-history PDF at the given path.
 func ParsePDF(path string) ([]Order, error) {
 	f, r, err := pdf.Open(path)
@@ -47,12 +54,6 @@ func ParsePDF(path string) ([]Order, error) {
 
 // parseOrderText extracts orders from the plain text of a Swiggy order-history PDF.
 func parseOrderText(text string) []Order {
-	// Regex to capture each row: Date, OrderID, RestaurantName, Amount
-	// Date: dd-mm-yyyy
-	// OrderID: long digits
-	// Amount: ₹digits.digits
-	// Restaurant: everything in between
-	rowRe := regexp.MustCompile(`(\d{2}-\d{2}-\d{4})(\d{15})(.+?)(₹[\d,]+\.\d{2})`)
 	matches := rowRe.FindAllStringSubmatch(text, -1)
 
 	var orders []Order
